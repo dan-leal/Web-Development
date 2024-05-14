@@ -4,6 +4,10 @@ div {
   padding: 30px;
   margin: 20px;
   background-color: aliceblue;
+  border-width: 10px;
+  border-color: cadetblue;
+  border-style: solid;
+  border-radius: 10px;
 }
 
 body {
