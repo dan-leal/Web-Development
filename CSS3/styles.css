@@ -1,0 +1,26 @@
+div {
+  width: 300px;
+  border: 6px;
+  padding: 30px;
+  margin: 20px;
+  background-color: aliceblue;
+}
+
+body {
+  background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pockettactics.com%2Fwp-content%2Fsites%2Fpockettactics%2F2023%2F02%2Fhonkai-star-wallpaper-astral-express.jpg&f=1&nofb=1&ipt=6a2d2fbd434edf7a4175ab0d975c0257b4d6ccb7cbabb7b667a02584975c581f&ipo=images);
+  background-repeat: no-repeat;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+img {
+  width: 300px;
+  margin: auto;
+  display: block;
+}
+
+p {
+  font-size: 15px;
+}
