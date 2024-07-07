@@ -4,21 +4,19 @@
 
   let board;
   let snake;
-  var isPaused = true; // flag para identificar se o jogo está pausado
   var time = 0; // tempo
   var saídaTempo = document.getElementById('tempo')
 
   function init() {
     board = new Board(SIZE);
     snake = new Snake([[4, 4], [4, 5], [4, 6]])
-    // setInterval(run, 1000 / FPS)
+    isPaused = false;
   }
 
   var t = setInterval(() => {
     if (!isPaused) {
       time++;
       saídaTempo.innerText = 'Tempo: ' + time;
-
       snake.walk()
     }
   }, 1000 / FPS);
@@ -26,11 +24,17 @@
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "s":
-        isPaused = false;
+        init()
         break;
       case "p":
-        isPaused = true;
-        break;
+        if (isPaused == false) {
+          isPaused = true;
+          break;
+        }
+        else {
+          isPaused = false;
+          break;
+        }
       default:
         break;
     }
@@ -108,5 +112,5 @@
     }
   }
 
-  init()
+
 })()
