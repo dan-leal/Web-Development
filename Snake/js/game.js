@@ -7,6 +7,7 @@
   let points;
   let fruits;
   let pontuacao = '00000';
+  let framesContados = 0;
 
   function init() {
     points = new Points()
@@ -14,7 +15,7 @@
     snake = new Snake([[4, 4], [4, 5], [4, 6]])
     fruits = new Fruits([[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]]);
     isPaused = false;
-    setInterval(run, 1000 / FPS);
+    IdIntervalo = setInterval(run, 1000 / FPS);
   }
 
   // botão start e pause
@@ -161,15 +162,27 @@
     if (!isPaused) {
       snake.walk()
       if (JSON.stringify(snake.body[0]) == JSON.stringify(fruits.showPosition())) {
+        let posNew = randomNumber()
+        if (snake.body.includes(posNew)) {
+          posNew = randomNumber()
+        } else {
+          fruits = new Fruits(posNew);
+        }
         snake.adicionar((fruits.showPosition()[0]))
         points.addPoint();
-        fruits = new Fruits([[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]]);
       }
+      framesContados++;
+      if (framesContados % 60 === 0) {
+        FPS += 1;
+        clearInterval(IdIntervalo);
+        IdIntervalo = setInterval(run, 1000 / FPS);
+      }
+
     }
   }
 
   function randomNumber() {
-    return Math.floor(Math.random() * (SIZE - 0)) + 0;
+    return [[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]];
   }
 
 })()
