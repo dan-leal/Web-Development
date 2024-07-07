@@ -6,6 +6,7 @@
   let snake;
   let points;
   let fruits;
+  let ultimaDirecao;
   let pontuacao = '00000';
   let framesContados = 0;
 
@@ -41,15 +42,19 @@
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "ArrowUp":
+        snake.ultimaDirecao = snake.direction;
         snake.changeDirection(0)
         break;
       case "ArrowRight":
+        snake.ultimaDirecao = snake.direction;
         snake.changeDirection(1)
         break;
       case "ArrowDown":
+        snake.ultimaDirecao = snake.direction;
         snake.changeDirection(2)
         break;
       case "ArrowLeft":
+        snake.ultimaDirecao = snake.direction;
         snake.changeDirection(3)
         break;
       default:
@@ -63,6 +68,15 @@
       this.element.setAttribute("id", "pontos")
       this.element.innerHTML = `${pontuacao}`
       document.body.appendChild(this.element)
+
+      this.element = document.createElement("h1")
+      this.element.setAttribute("id", "gameover")
+      this.element.innerHTML = "Fim do jogo!"
+      document.body.appendChild(this.element)
+      document.getElementById("gameover").style.paddingLeft = "500px"
+      document.getElementById("gameover").style.visibility = "hidden";
+      document.getElementById("gameover").style.display = "none";
+
     }
     addPoint(ponto) {
       pontuacao = parseInt(pontuacao) + ponto;
@@ -80,7 +94,6 @@
       } else {
         this.color = "#FF0000";
       }
-
       this.position.forEach(field => document
         .querySelector(`#board tr:nth-child(${field[0]}) td:nth-child(${field[1]})`).style.backgroundColor = this.color)
     }
@@ -110,12 +123,23 @@
     constructor(body) {
       this.body = body;
       this.color = "#222";
+      this.ultimaDirecao = 1;
       this.direction = 1; // 0 para cima, 1 para direita, 2 para baixo, 3 para esquerda
       this.body.forEach(field => document.querySelector(`#board tr:nth-child(${field[0]}) td:nth-child(${field[1]})`).style.backgroundColor = this.color)
     }
     walk() {
       const head = this.body[this.body.length - 1];
       let newHead;
+
+      // verifica se a direção é valida, caso contrário, ignora
+      if (this.direction == 0 && this.ultimaDirecao == 2 ||
+        this.direction == 1 && this.ultimaDirecao == 3 ||
+        this.direction == 2 && ultimaDirecao == 0 ||
+        this.direction == 3 && this.ultimaDirecao == 1
+      ) {
+        this.direction = this.ultimaDirecao;
+      }
+
       switch (this.direction) {
         case 0:
           newHead = [head[0] - 1, head[1]]
@@ -132,35 +156,40 @@
         default:
           break;
       }
+      // Verifica se a cabeça da cobra está fora dos limites da tabela
+      if (newHead[0] < 0 || newHead[0] >= 40 || newHead[1] < 0 || newHead[1] >= 40) {
+        document.getElementById("gameover").style.visibility = "visible";
+        document.getElementById("gameover").style.display = "inline";
+        isPaused = true; // Pausar o jogo
+        return;
+      }
+      // verifica se passou pelo corpo
+      this.body.slice(1).forEach((e) => {
+        if (JSON.stringify(newHead) == JSON.stringify(e)) {
+          document.getElementById("gameover").style.visibility = "visible";
+          document.getElementById("gameover").style.display = "inline";
+          isPaused = true; // Pausar o jogo
+          return;
+        }
+      })
+
       this.body.push(newHead)
       const oldTail = this.body.shift()
+
+
       document.querySelector(`#board tr:nth-child(${newHead[0]}) td:nth-child(${newHead[1]})`).style.backgroundColor = this.color
       document.querySelector(`#board tr:nth-child(${oldTail[0]}) td:nth-child(${oldTail[1]})`).style.backgroundColor = board.color
+
+
+
     }
     changeDirection(direction) {
       this.direction = direction
     }
     adicionar() {
       const head = this.body[this.body.length - 1];
-      let newHead;
-      switch (this.direction) {
-        case 0:
-          newHead = [head[0] - 1, head[1]]
-          break;
-        case 1:
-          newHead = [head[0], head[1] + 1]
-          break;
-        case 2:
-          newHead = [head[0] + 1, head[1]]
-          break;
-        case 3:
-          newHead = [head[0], head[1] - 1]
-          break;
-        default:
-          break;
-      }
-      this.body.push(newHead)
-      document.querySelector(`#board tr:nth-child(${newHead[0]}) td:nth-child(${newHead[1]})`).style.backgroundColor = this.color
+      this.body.push(head)
+      document.querySelector(`#board tr:nth-child(${head[0]}) td:nth-child(${head[1]})`).style.backgroundColor = this.color
     }
   }
 
