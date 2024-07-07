@@ -4,15 +4,20 @@
 
   let board;
   let snake;
+  let points;
+  let fruits;
+  let pontuacao = '00000';
 
   function init() {
+    points = new Points(pontuacao)
     board = new Board(SIZE);
     snake = new Snake([[4, 4], [4, 5], [4, 6]])
+    fruits = new Fruits();
     isPaused = false;
     setInterval(run, 1000 / FPS);
   }
 
-
+  // botão start e pause
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "s":
@@ -50,6 +55,32 @@
         break;
     }
   })
+
+  class Points {
+    constructor(pontuacao) {
+      this.element = document.createElement("h1")
+      this.element.setAttribute("id", "pontos")
+      this.element.innerHTML = `${pontuacao}`
+      document.body.appendChild(this.element)
+    }
+    addPoint() {
+      const soma = parseInt(pontuacao) + 300;
+      const somaFormatada = soma.toString().padStart(5, '0');
+      document.getElementById("pontos").innerHTML = `${somaFormatada}`;
+    }
+  }
+
+  class Fruits {
+    constructor() {
+      this.position = [[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]];
+      this.color = "#222";
+      this.position.forEach(field => document
+        .querySelector(`#board tr:nth-child(${field[0]}) td:nth-child(${field[1]})`).style.backgroundColor = this.color)
+    }
+    showPosition() {
+      return this.position[0];
+    }
+  }
 
   class Board {
     constructor(size) {
@@ -95,9 +126,15 @@
           break;
       }
       this.body.push(newHead)
+      console.log(JSON.stringify(fruits.showPosition()))
       const oldTail = this.body.shift()
       document.querySelector(`#board tr:nth-child(${newHead[0]}) td:nth-child(${newHead[1]})`).style.backgroundColor = this.color
       document.querySelector(`#board tr:nth-child(${oldTail[0]}) td:nth-child(${oldTail[1]})`).style.backgroundColor = board.color
+
+      // caso passou na pontuação
+      if (JSON.stringify(newHead) == JSON.stringify(fruits.showPosition())) {
+        points.addPoint();
+      }
     }
     changeDirection(direction) {
       this.direction = direction
@@ -108,6 +145,10 @@
     if (!isPaused) {
       snake.walk()
     }
+  }
+
+  function randomNumber() {
+    return Math.floor(Math.random() * (SIZE - 0)) + 0;
   }
 
 })()
