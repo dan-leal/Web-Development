@@ -64,8 +64,8 @@
       this.element.innerHTML = `${pontuacao}`
       document.body.appendChild(this.element)
     }
-    addPoint() {
-      pontuacao = parseInt(pontuacao) + 300;
+    addPoint(ponto) {
+      pontuacao = parseInt(pontuacao) + ponto;
       pontuacao = pontuacao.toString().padStart(5, '0');
       document.getElementById("pontos").innerHTML = `${pontuacao}`;
     }
@@ -74,7 +74,13 @@
   class Fruits {
     constructor(position) {
       this.position = position;
-      this.color = "#222";
+      const numAleatorio = Math.random();
+      if (numAleatorio < 2 / 3) {
+        this.color = "#222";
+      } else {
+        this.color = "#FF0000";
+      }
+
       this.position.forEach(field => document
         .querySelector(`#board tr:nth-child(${field[0]}) td:nth-child(${field[1]})`).style.backgroundColor = this.color)
     }
@@ -162,6 +168,12 @@
     if (!isPaused) {
       snake.walk()
       if (JSON.stringify(snake.body[0]) == JSON.stringify(fruits.showPosition())) {
+        if (fruits.color === '#222') {
+          points.addPoint(1);
+        } else {
+          points.addPoint(2);
+        }
+
         let posNew = randomNumber()
         if (snake.body.includes(posNew)) {
           posNew = randomNumber()
@@ -169,7 +181,7 @@
           fruits = new Fruits(posNew);
         }
         snake.adicionar((fruits.showPosition()[0]))
-        points.addPoint();
+
       }
       framesContados++;
       if (framesContados % 60 === 0) {
