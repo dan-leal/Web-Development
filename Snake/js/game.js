@@ -9,10 +9,10 @@
   let pontuacao = '00000';
 
   function init() {
-    points = new Points(pontuacao)
+    points = new Points()
     board = new Board(SIZE);
     snake = new Snake([[4, 4], [4, 5], [4, 6]])
-    fruits = new Fruits();
+    fruits = new Fruits([[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]]);
     isPaused = false;
     setInterval(run, 1000 / FPS);
   }
@@ -57,22 +57,22 @@
   })
 
   class Points {
-    constructor(pontuacao) {
+    constructor() {
       this.element = document.createElement("h1")
       this.element.setAttribute("id", "pontos")
       this.element.innerHTML = `${pontuacao}`
       document.body.appendChild(this.element)
     }
     addPoint() {
-      const soma = parseInt(pontuacao) + 300;
-      const somaFormatada = soma.toString().padStart(5, '0');
-      document.getElementById("pontos").innerHTML = `${somaFormatada}`;
+      pontuacao = parseInt(pontuacao) + 300;
+      pontuacao = pontuacao.toString().padStart(5, '0');
+      document.getElementById("pontos").innerHTML = `${pontuacao}`;
     }
   }
 
   class Fruits {
-    constructor() {
-      this.position = [[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]];
+    constructor(position) {
+      this.position = position;
       this.color = "#222";
       this.position.forEach(field => document
         .querySelector(`#board tr:nth-child(${field[0]}) td:nth-child(${field[1]})`).style.backgroundColor = this.color)
@@ -126,24 +126,45 @@
           break;
       }
       this.body.push(newHead)
-      console.log(JSON.stringify(fruits.showPosition()))
       const oldTail = this.body.shift()
       document.querySelector(`#board tr:nth-child(${newHead[0]}) td:nth-child(${newHead[1]})`).style.backgroundColor = this.color
       document.querySelector(`#board tr:nth-child(${oldTail[0]}) td:nth-child(${oldTail[1]})`).style.backgroundColor = board.color
-
-      // caso passou na pontuação
-      if (JSON.stringify(newHead) == JSON.stringify(fruits.showPosition())) {
-        points.addPoint();
-      }
     }
     changeDirection(direction) {
       this.direction = direction
+    }
+    adicionar() {
+      const head = this.body[this.body.length - 1];
+      let newHead;
+      switch (this.direction) {
+        case 0:
+          newHead = [head[0] - 1, head[1]]
+          break;
+        case 1:
+          newHead = [head[0], head[1] + 1]
+          break;
+        case 2:
+          newHead = [head[0] + 1, head[1]]
+          break;
+        case 3:
+          newHead = [head[0], head[1] - 1]
+          break;
+        default:
+          break;
+      }
+      this.body.push(newHead)
+      document.querySelector(`#board tr:nth-child(${newHead[0]}) td:nth-child(${newHead[1]})`).style.backgroundColor = this.color
     }
   }
 
   function run() {
     if (!isPaused) {
       snake.walk()
+      if (JSON.stringify(snake.body[0]) == JSON.stringify(fruits.showPosition())) {
+        snake.adicionar((fruits.showPosition()[0]))
+        points.addPoint();
+        fruits = new Fruits([[parseInt(Math.random() * 20), parseInt(Math.random() * 20)]]);
+      }
     }
   }
 
