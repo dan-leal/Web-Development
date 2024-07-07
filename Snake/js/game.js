@@ -4,22 +4,14 @@
 
   let board;
   let snake;
-  var time = 0; // tempo
-  var saídaTempo = document.getElementById('tempo')
 
   function init() {
     board = new Board(SIZE);
     snake = new Snake([[4, 4], [4, 5], [4, 6]])
     isPaused = false;
+    setInterval(run, 1000 / FPS);
   }
 
-  var t = setInterval(() => {
-    if (!isPaused) {
-      time++;
-      saídaTempo.innerText = 'Tempo: ' + time;
-      snake.walk()
-    }
-  }, 1000 / FPS);
 
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
@@ -112,5 +104,10 @@
     }
   }
 
+  function run() {
+    if (!isPaused) {
+      snake.walk()
+    }
+  }
 
 })()

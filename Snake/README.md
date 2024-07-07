@@ -6,7 +6,7 @@ Regra 03: A cobra deverá ficar andando durante todo o jogo, sem parar. A veloci
 
 Regra 04: No jogo existem dois tipos de alimentos: os pretos e os vermelhos. O jogador ganha 1 ponto sempre que a cobra come um alimento preto, e ganha 2 pontos sempre que ela come um vermelho. No entanto, é importante frisar que os dois tipos de alimentos têm o mesmo efeito sobre o crescimento da cobra, isto é, o vermelho não faz a cobra crescer mais, embora valha mais pontos. A cada instante, uma função aleatória definirá qual dos dois alimentos deverá aparecer na tela, mas a probabilidade do alimento preto aparecer é 2 vezes maior do que o alimento vermelho. O total de pontos do jogador deve ser registrado no quadro de pontuação (canto superior esquerdo nas Figuras 2, 3 e 4), que deve ser inserido em algum lugar do jogo a critério do aluno.
 
-Regra 05: O jogo pode ser pausado pelo jogador através da tecla p. Para retomar um jogo pausado, basta o jogador pressionar a tecla p novamente.
+Regra 05: O jogo pode ser pausado pelo jogador através da tecla p. Para retomar um jogo pausado, basta o jogador pressionar a tecla p novamente. OK
 
 Regra 06: O jogo termina (game over) quando a cobra bate em uma das paredes da área do jogo (vide Figura 4), ou quando sua cabeça bate em outra parte de próprio seu tronco. Quando isso acontecer, deverá aparecer uma mensagem de game over no meio do jogo. Nesse caso, se o usuário clicar na tecla S novamente, um novo jogo é iniciado.
 
