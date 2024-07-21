@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      Informe o raio <input type="text" id="raio" value="" size="30" /><br />
+      Area <input type="text" id="area" value="" size="30" /><br />
+      Circunferência <input type="text" id="circ" value="" size="30" /><br />
+    </form>
+
+    <button onclick="myFunction()">OK</button>
+    <script>
+      function myFunction() {
+        let r = document.querySelector("#raio").value;
+
+        let area = (Math.round(Math.PI * r ** 2 * 100) / 100).toFixed(2);
+        let circunferencia = (Math.round(2 * Math.PI * r * 100) / 100).toFixed(
+          2
+        );
+
+        console.log(area, circunferencia);
+        document.getElementById("area").value = area;
+        document.getElementById("circ").value = circunferencia;
+      }
+    </script>
+  </body>
+</html>
