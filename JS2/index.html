@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS2</title>
+  </head>
+  <body>
+    <script>
+      function jokenpo() {
+        let pontuacao = 0;
+        const possibilidades = ["Papel", "Pedra", "Tesoura"];
+        while (true) {
+          let p = parseInt(prompt());
+          console.log("Escolha sua jogada:");
+          console.log("1 - Papel");
+          console.log("2 - Pedra");
+          console.log("3 - Tesoura");
+          let c = Math.floor(Math.random() * 3) + 1;
+          console.log(`Computador escolheu: ${possibilidades[c - 1]}`);
+
+          if (![1, 2, 3].includes(p)) {
+            console.log(`Você perdeu! A sua pontuação foi ${pontuacao} `);
+            break;
+          }
+
+          if (
+            (p === 1 && c === 2) ||
+            (p === 2 && c === 3) ||
+            (p === 3 && c === 1)
+          ) {
+            pontuacao++;
+            console.log("Você ganhou!");
+          } else if (p == c) {
+            console.log("A rodada empatou");
+          } else {
+            console.log(`Você perdeu! A sua pontuação foi ${pontuacao} `);
+            break;
+          }
+        }
+      }
+
+      jokenpo();
+    </script>
+  </body>
+</html>
