@@ -13,6 +13,11 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello world!");
 });
 
+
+app.get("/about", (req: Request, res: Response) => {
+  res.send("Página about!");
+});
+
 app.listen(PORT, () => {
   console.log(`Express app iniciada na porta ${PORT}.`);
 });
