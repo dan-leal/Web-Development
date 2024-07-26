@@ -1,13 +1,12 @@
 import { Request, Response } from "express"
 import { loremIpsum } from "lorem-ipsum";
 const hb1 = (req: Request, res: Response) => {
-  res.render("main/hb1", { mensagem: "Alguma Mensagem", layout: false });
+  res.render("main/hb1", { mensagem: "Alguma Mensagem"});
 }
 
 const hb2 = (req: Request, res: Response) => {
   res.render("main/hb2", {
-    vencedorCaprichoso: false,
-    layout: false
+    vencedorCaprichoso: false
   })
 }
 
@@ -19,7 +18,7 @@ const hb3 = (req: Request, res: Response) => {
     { name: "Horácio Fernandes", room: 148 },
   ];
   res.render("main/hb3", {
-    profs, layout: false
+    profs
   })
 }
 
@@ -34,7 +33,7 @@ const hb4 = (req: Request, res: Response) => {
     { name: "Sequelize", type: "ORM tool", poweredByNodejs: true },
   ];
   res.render("main/hb4", {
-    techs, layout: false
+    techs
   })
 }
 

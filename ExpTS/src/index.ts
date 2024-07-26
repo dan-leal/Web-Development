@@ -18,6 +18,7 @@ app.set("views", `${__dirname}/views`);
 app.use(logger("simples"));
 app.use("/img", express.static(`${__dirname}/../public/img`));
 app.use(router);
+app.locals.valor = "10";
 
 app.listen(PORT, () => {
   console.log(`Express app iniciada na porta ${PORT}.`);
