@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { loremIpsum } from "lorem-ipsum";
 const hb1 = (req: Request, res: Response) => {
-  res.render("main/hb1", { mensagem: "Alguma Mensagem"});
+  res.render("main/hb1", { mensagem: "Universidade Federal do Amazonas" });
 }
 
 const hb2 = (req: Request, res: Response) => {
