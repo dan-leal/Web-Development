@@ -2,6 +2,44 @@ import { Router } from "express";
 import { loremIpsum, LoremIpsum } from "lorem-ipsum";
 const router = Router()
 
+router.get("/hb1", (req, res) => {
+  res.render("hb1", { mensagem: "Alguma Mensagem", layout: false });
+})
+
+router.get("/hb2", (req, res) => {
+  res.render("hb2", {
+    vencedorCaprichoso: false,
+    layout: false
+  })
+})
+
+router.get("/hb3", (req, res) => {
+  const profs = [
+    { name: "David Fernandes", room: 321 },
+    { name: "Altigran Soares", room: 224 },
+    { name: "Elaine Harada", room: 345 },
+    { name: "Horácio Fernandes", room: 148 },
+  ];
+  res.render("hb3", {
+    profs, layout: false
+  })
+})
+
+router.get("/hb4", (req, res) => {
+  const techs = [
+    { name: "Express", type: "Framework", poweredByNodejs: true },
+    { name: "Laravel", type: "Framework", poweredByNodejs: false },
+    { name: "React", type: "Library", poweredByNodejs: true },
+    { name: "Handlebars", type: "Engine View", poweredByNodejs: true },
+    { name: "Django", type: "Framework", poweredByNodejs: false },
+    { name: "Docker", type: "Virtualization", poweredByNodejs: false },
+    { name: "Sequelize", type: "ORM tool", poweredByNodejs: true },
+  ];
+  res.render("hb4", {
+    techs, layout: false
+  })
+})
+
 router.get("/", (req, res) => {
   res.send("Hello world!");
 });
