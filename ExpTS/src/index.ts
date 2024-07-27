@@ -35,6 +35,7 @@ app.use('/js', [
 // configurando logger
 app.use(logger("simples"));
 app.use("/img", express.static(`${__dirname}/../public/img`));
+app.use(express.urlencoded({ extended: false }))
 app.use(router);
 
 app.listen(PORT, () => {

@@ -10,7 +10,7 @@ router.get("/major/", majorController.index);
 router.get("/major/create", majorController.create);
 router.post("/major/create", majorController.create);
 router.get("/major/read/:id", majorController.read);
-router.get("/major/", majorController.update);
+router.get("/major/update/:id", majorController.update);
 router.post("/major/", majorController.update);
 router.post("/major/", majorController.remove);
 
